@@ -2,6 +2,9 @@ package com.ejercicio.rolRaza.resource;
 
 import com.ejercicio.rolRaza.service.IRazaService;
 import com.ejercicio.rolRaza.service.dto.RazaDTO;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +27,17 @@ public class RazaResource {
     }
 
     @PostMapping("/razas")
-    public RazaDTO postRaza(@RequestBody RazaDTO razaDTO){
+    public ResponseEntity postRaza(@RequestBody RazaDTO razaDTO){
+
+        if(razaDTO.getNombre() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("El nombre no puede estar vacío");
+        }
+
         RazaDTO raza = this.razaService.save(razaDTO);
-        return raza;
+        return new ResponseEntity<RazaDTO>(raza, new HttpHeaders(), HttpStatus.CREATED);
+
     }
 
     @PutMapping("/razas")

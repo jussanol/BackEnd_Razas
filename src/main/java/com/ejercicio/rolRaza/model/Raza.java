@@ -13,10 +13,10 @@ public class Raza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="nombre")
+    @Column(name="nombre", nullable = false)
     private String nombre;
 
-    @Column(name="descripcion")
+    @Column(name="descripcion", nullable = false)
     private String descripcion;
 
     @Column(name="url_imagen")
